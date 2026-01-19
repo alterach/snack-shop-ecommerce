@@ -278,6 +278,6 @@ export const products: Product[] = [
 export const storeInfo: StoreInfo = {
   name: "Snack Mama",
   description: "Jajanan rumahan dengan rasa yang bikin nagih!",
-  whatsapp: "6281234567890",
+  whatsapp: "6285156844156",
   address: "Jl. Raya No. 123, Indonesia",
 }
