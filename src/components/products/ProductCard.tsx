@@ -1,8 +1,10 @@
 import { Product } from '@/types'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Plus } from 'lucide-react'
+import { Plus, Check } from 'lucide-react'
 import { useCartStore } from '@/store/cartStore'
+import { toast } from 'sonner'
+import { useState } from 'react'
 
 interface ProductCardProps {
   product: Product
@@ -11,10 +13,18 @@ interface ProductCardProps {
 
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const addItem = useCartStore((state) => state.addItem)
+  const [isAdded, setIsAdded] = useState(false)
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault()
     addItem(product, 1)
+    setIsAdded(true)
+    
+    toast.success(`${product.name} ditambahkan ke keranjang`, {
+      icon: '🛒',
+    })
+    
+    setTimeout(() => setIsAdded(false), 2000)
   }
 
   return (
@@ -45,10 +55,15 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           {/* Quick Add Button - Appears on Hover */}
           <button
             onClick={handleQuickAdd}
-            className="absolute bottom-3 right-3 p-3 bg-white text-primary-900 rounded-full shadow-lg opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-primary-900 hover:text-white"
+            disabled={isAdded}
+            className={`absolute bottom-3 right-3 p-3 rounded-full shadow-lg opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ${
+              isAdded 
+                ? 'bg-green-500 text-white' 
+                : 'bg-white text-primary-900 hover:bg-primary-900 hover:text-white'
+            }`}
             aria-label="Add to cart"
           >
-            <Plus className="h-5 w-5" />
+            {isAdded ? <Check className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
           </button>
         </div>
 

@@ -1,16 +1,29 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Search } from 'lucide-react'
 import { products, categories } from '@/data/products'
 import { ProductCard } from '@/components/products/ProductCard'
 import { useSearchParams } from 'react-router-dom'
+import { PageTransition } from '@/components/layout/PageTransition'
 
 export function ProductsPage() {
   const [searchParams] = useSearchParams()
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
     searchParams.get('category') || null
   )
+
+  useEffect(() => {
+    const query = searchParams.get('search')
+    if (query !== null) {
+      setSearchTerm(query)
+    }
+    
+    const category = searchParams.get('category')
+    if (category !== null) {
+      setSelectedCategory(category)
+    }
+  }, [searchParams])
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
@@ -21,7 +34,7 @@ export function ProductsPage() {
   }, [searchTerm, selectedCategory])
 
   return (
-    <div className="min-h-screen bg-cream-50 pb-16">
+    <PageTransition className="min-h-screen bg-cream-50 pb-16">
       {/* Header */}
       <div className="bg-white border-b border-primary-100 sticky top-16 z-30">
         <div className="container-custom py-6">
@@ -102,6 +115,6 @@ export function ProductsPage() {
           </motion.div>
         )}
       </div>
-    </div>
+    </PageTransition>
   )
 }

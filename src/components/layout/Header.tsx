@@ -1,7 +1,7 @@
-import { ShoppingCart, Menu, Search } from 'lucide-react'
+import { ShoppingCart, Menu, Search, X } from 'lucide-react'
 import { useCartStore } from '@/store/cartStore'
-import { Link, useLocation } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface HeaderProps {
@@ -11,8 +11,13 @@ interface HeaderProps {
 export function Header({ setCartOpen }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
+  const searchInputRef = useRef<HTMLInputElement>(null)
+  
   const totalItems = useCartStore((state) => state.getTotalItems())
   const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +26,21 @@ export function Header({ setCartOpen }: HeaderProps) {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus()
+    }
+  }, [isSearchOpen])
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchValue.trim()) {
+      navigate(`/produk?search=${encodeURIComponent(searchValue)}`)
+      setIsSearchOpen(false)
+      setSearchValue('')
+    }
+  }
 
   return (
     <>
@@ -69,8 +89,11 @@ export function Header({ setCartOpen }: HeaderProps) {
 
             {/* Actions */}
             <div className="flex items-center gap-4">
-              <button className="p-2 rounded-full hover:bg-primary-100/50 text-primary-800 transition-colors">
-                <Search className="h-5 w-5" />
+              <button 
+                className="p-2 rounded-full hover:bg-primary-100/50 text-primary-800 transition-colors"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+              >
+                {isSearchOpen ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
               </button>
               
               <button
@@ -93,6 +116,30 @@ export function Header({ setCartOpen }: HeaderProps) {
               </button>
             </div>
           </div>
+
+          {/* Search Bar Overlay */}
+          <AnimatePresence>
+            {isSearchOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute top-full left-0 right-0 bg-white shadow-md p-4 md:px-8 border-t border-primary-50"
+              >
+                <form onSubmit={handleSearchSubmit} className="max-w-3xl mx-auto relative">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary-400" />
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Cari jajanan favoritmu..."
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    className="w-full bg-cream-50 border-none rounded-full py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary-500 transition-all placeholder:text-primary-300 text-primary-900"
+                  />
+                </form>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </header>
 

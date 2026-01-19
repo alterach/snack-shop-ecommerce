@@ -1,3 +1,4 @@
+import { Toaster } from 'sonner'
 import { useState } from 'react'
 import { createBrowserRouter, RouterProvider, Outlet, ScrollRestoration } from 'react-router-dom'
 import { Header } from './components/layout/Header'
@@ -8,6 +9,7 @@ import { ProductsPage } from './pages/ProductsPage'
 import { ProductDetailPage } from './pages/ProductDetailPage'
 import { AboutPage } from './pages/AboutPage'
 import { ContactPage } from './pages/ContactPage'
+import { NotFoundPage } from './pages/NotFoundPage'
 
 function Layout() {
   const [cartOpen, setCartOpen] = useState(false)
@@ -15,6 +17,19 @@ function Layout() {
   return (
     <div className="flex flex-col min-h-screen bg-cream-50 font-sans">
       <ScrollRestoration />
+      <Toaster 
+        position="bottom-right" 
+        toastOptions={{
+          style: {
+            background: '#36160e',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '12px',
+            fontFamily: 'DM Sans, sans-serif',
+          },
+          duration: 2000,
+        }}
+      />
       <Header setCartOpen={setCartOpen} />
       <main className="flex-1">
         <Outlet />
@@ -49,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: 'contact',
         element: <ContactPage />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },
