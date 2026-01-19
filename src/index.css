@@ -1,36 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-primary-50: #fff7ed;
-  --color-primary-100: #ffedd5;
-  --color-primary-200: #fed7aa;
-  --color-primary-300: #fdba74;
-  --color-primary-400: #fb923c;
-  --color-primary-500: #f97316;
-  --color-primary-600: #ea580c;
-  --color-primary-700: #c2410c;
-  --color-primary-800: #9a3412;
-  --color-primary-900: #7c2d12;
-  --color-primary-950: #431407;
+  /* Premium Palette - Artisanal & Warm */
+  --color-primary-50: #fdf8f6;
+  --color-primary-100: #f2e8e5;
+  --color-primary-200: #eaddd7;
+  --color-primary-300: #e0cec7;
+  --color-primary-400: #d2bab0;
+  --color-primary-500: #9f5f46; /* Burnt Sienna - Earthy/Premium */
+  --color-primary-600: #8a4a34;
+  --color-primary-700: #743a27;
+  --color-primary-800: #5e2c1d;
+  --color-primary-900: #4a2115;
+  --color-primary-950: #36160e;
 
-  --color-accent-50: #fefce8;
-  --color-accent-100: #fef9c3;
-  --color-accent-200: #fef08a;
-  --color-accent-300: #fde047;
-  --color-accent-400: #facc15;
-  --color-accent-500: #eab308;
-  --color-accent-600: #ca8a04;
-  --color-accent-700: #a16207;
-  --color-accent-800: #854d0e;
-  --color-accent-900: #713f12;
-  --color-accent-950: #422006;
+  /* Gold/Champagne Accents */
+  --color-accent-50: #fbf9f4;
+  --color-accent-100: #f5f3f0;
+  --color-accent-200: #ebe0cc;
+  --color-accent-300: #dec9a3;
+  --color-accent-400: #d1b27a;
+  --color-accent-500: #c49b50; /* Muted Gold */
+  --color-accent-600: #a67c3b;
+  --color-accent-700: #8a622e;
+  --color-accent-800: #6f4c22;
+  --color-accent-900: #563918;
+  --color-accent-950: #3e280f;
 
-  --color-cream-50: #fffbf7;
-  --color-cream-100: #fffaeb;
-  --color-cream-200: #fff5d6;
-  --color-cream-300: #ffefbd;
-  --color-cream-400: #ffe8a3;
-  --color-cream-500: #ffe08a;
+  /* Sophisticated Neutrals */
+  --color-cream-50: #faf9f8;  /* Off-white background */
+  --color-cream-100: #f5f3f0;
+  --color-cream-200: #e6e2dd;
+  --color-cream-300: #d6d0ca;
+  --color-cream-400: #c6beb6;
+  --color-cream-500: #a89f95;
 
-  --color-danger-500: #ef4444;
+  --color-danger-500: #b91c1c;
+
+  /* Typography */
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', serif;
+
+  /* Borders */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  --border-color-primary-200: #fb923c;
+}
+
+body {
+  @apply bg-cream-50 text-primary-950 antialiased font-sans;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-serif tracking-tight;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  @apply bg-white/70 backdrop-blur-md border border-white/20;
+}
+
+.glass-dark {
+  @apply bg-primary-950/90 backdrop-blur-md border border-white/10;
+}
+
+/* Premium Component Styles */
+.snack-card {
+  @apply bg-white rounded-2xl overflow-hidden transition-all duration-500 ease-out cursor-pointer border border-transparent hover:border-accent-200/50;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+}
+
+.snack-card:hover {
+  @apply -translate-y-1;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+}
+
+.btn-primary {
+  @apply bg-primary-900 text-white font-medium rounded-full px-8 py-3 transition-all duration-300 hover:bg-primary-800 active:scale-[0.98] tracking-wide text-sm uppercase;
+  box-shadow: 0 4px 14px 0 rgba(0,0,0,0.1);
+}
+
+.btn-secondary {
+  @apply bg-white text-primary-900 border border-primary-200 font-medium rounded-full px-8 py-3 transition-all duration-300 hover:bg-primary-50 active:scale-[0.98] tracking-wide text-sm uppercase;
+}
+
+.input-field {
+  @apply w-full px-5 py-3 rounded-xl border border-primary-200 bg-white/50 focus:bg-white focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 transition-all duration-300 font-sans;
+}
+
+.container-custom {
+  @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
 }
