@@ -37,7 +37,7 @@ export function NotFoundPage() {
             <Home className="h-4 w-4" />
             Back to Home
           </Link>
-          <Link to="/products" className="btn-secondary inline-flex items-center gap-2">
+          <Link to="/produk" className="btn-secondary inline-flex items-center gap-2">
             <ShoppingBag className="h-4 w-4" />
             Browse Products
           </Link>

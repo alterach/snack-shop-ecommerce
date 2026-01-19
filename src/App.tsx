@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: 'products',
+        path: 'produk',
         element: <ProductsPage />,
       },
       {
@@ -58,11 +58,11 @@ const router = createBrowserRouter([
         element: <ProductDetailPage />,
       },
       {
-        path: 'about',
+        path: 'tentang',
         element: <AboutPage />,
       },
       {
-        path: 'contact',
+        path: 'kontak',
         element: <ContactPage />,
       },
       {

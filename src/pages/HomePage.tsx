@@ -33,11 +33,11 @@ export function HomePage() {
               Handcrafted daily with premium ingredients. Experience the perfect blend of tradition and modern flavor profiles.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link to="/products" className="btn-primary flex items-center gap-3 group">
+              <Link to="/produk" className="btn-primary flex items-center gap-3 group">
                 Shop Collection
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link to="/about" className="btn-secondary">
+              <Link to="/tentang" className="btn-secondary">
                 Our Story
               </Link>
             </div>
@@ -95,7 +95,7 @@ export function HomePage() {
               <h2 className="text-4xl font-serif font-bold text-primary-950 mb-4">Curated Favorites</h2>
               <p className="text-primary-600/80 max-w-md">Explore our most loved handcrafted snacks, made fresh daily for the ultimate taste experience.</p>
             </div>
-            <Link to="/products" className="hidden md:flex items-center gap-2 text-primary-900 font-medium hover:text-primary-600 transition-colors">
+            <Link to="/produk" className="hidden md:flex items-center gap-2 text-primary-900 font-medium hover:text-primary-600 transition-colors">
               View All <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -107,7 +107,7 @@ export function HomePage() {
           </div>
           
           <div className="mt-12 text-center md:hidden">
-            <Link to="/products" className="btn-secondary inline-flex">View All Products</Link>
+            <Link to="/produk" className="btn-secondary inline-flex">View All Products</Link>
           </div>
         </div>
       </section>
@@ -128,7 +128,7 @@ export function HomePage() {
             ].map((cat) => (
               <Link 
                 key={cat.name}
-                to={`/products?category=${cat.name.toLowerCase().replace(' ', '-')}`}
+                to={`/produk?category=${cat.name.toLowerCase().replace(' ', '-')}`}
                 className="group block"
               >
                 <div className={`aspect-square rounded-full ${cat.color} mb-4 flex items-center justify-center text-4xl group-hover:scale-105 transition-transform duration-300 shadow-sm`}>
